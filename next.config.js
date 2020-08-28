@@ -45,7 +45,7 @@ const config = {
       },
     ]
   },
-  // assetPrefix: "ehealth_h5",
+  assetPrefix: "/ehealth_h5",
   webpack: (config, { isServer }) => {
     // console.log('config: ', JSON.stringify(config));
     if (isServer) {
