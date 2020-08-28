@@ -37,6 +37,15 @@ const stylePlugins = [
   ]
 ]
 const config = {
+  async rewrites() {
+    return [
+      {
+        source: '/ehealth_h5/:slug*',
+        destination: '/:slug*',
+      },
+    ]
+  },
+  // assetPrefix: "ehealth_h5",
   webpack: (config, { isServer }) => {
     // console.log('config: ', JSON.stringify(config));
     if (isServer) {
