@@ -1,0 +1,9 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+     ["@babel/plugin-proposal-decorators", {"legacy": true }],
+     ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    //  ["module-resolver",{"root": ["./"],"alias": {"styles": "./styles", "@": "./pages"}}],
+     ["import", { "libraryName": "antd-mobile",  "style": true }] // `style: true` 会加载 less 文件  issues https://github.com/ant-design/ant-design-mobile/issues/2287
+  ]
+}

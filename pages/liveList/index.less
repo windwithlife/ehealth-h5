@@ -1,0 +1,30 @@
+.live_list_container{
+    .live_ele_container{
+        display: flex;
+        height: 120px;
+        margin-bottom: 6px;
+        .live_ele_left{
+            width: 46%;
+            padding: 0px 6px;
+            position: relative;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+            .live_ele_left_desc{
+                position: absolute;
+                color: #fff;
+                left: 12px;
+                bottom: 6px;
+                width: calc(100% - 24px);
+            }
+        }
+        .live_ele_right{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 54%;
+            padding: 6px;
+        }
+    }
+}
