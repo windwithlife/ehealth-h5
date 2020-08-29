@@ -5,10 +5,14 @@
 import axios from "axios";
 import { Modal } from "antd-mobile";
 import {Loading,getQueryVariable} from "./tools";
+import config from "../config.json"
 
 const isServer = typeof window == 'undefined';
 
 
+export const doHref = (path="")=>{
+    location.href = `${location.origin}${config.baseUrl}/${path}`;
+}
 
 export const checkStatus = async response => {
     if (response.status >= 200 && response.status < 300) {
@@ -58,7 +62,7 @@ export const doLogin = async (pageUrl) => {
 async function dealToken(result) {
     // console.log('result: ', result);
     let { token = '', status, data } = result;//status 响应状态(0:失败 1:成功  2:未登录)
-    if (!!data.token) token = data.token;
+    if (data.token) token = data.token;
     switch (status) {
         case 0: {
             Modal.alert('提示', result.message, [{text: '确定',onPress: ()=>{}}])

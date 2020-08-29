@@ -1,7 +1,8 @@
 import React, { useState,useEffect} from 'react';
 import "./index.less";
 import LinesEllipsis from 'react-lines-ellipsis'
-import {invoke_post} from "../../common/index"
+import {invoke_post,doHref} from "../../common/index"
+import config from "../../config.json"
 
 /** class 中生命周期函数经常包含不相关的逻辑，但又把相关逻辑分离到了几个不同方法中的问题 */
 let totalPage = null;
@@ -10,7 +11,7 @@ let currentPage = 1;
 function Live(){
   function doClick(item){
     let {id} = item;
-    location.href = `${location.origin}/live?id=${id}`;
+    doHref(`live?id=${id}`);
   }
 
   const [liveList,setLiveList] = useState([]);

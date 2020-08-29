@@ -2,8 +2,7 @@
 const withCSS = require('@zeit/next-css');
 const withLess = require('@zeit/next-less');
 const withPlugins = require('next-compose-plugins');
-const logger = require("./tool_server/logger")(__filename);
-const path = require('path');
+const {baseUrl} = require("./config.json")
 
 const stylePlugins = [
   [ 
@@ -37,15 +36,15 @@ const stylePlugins = [
   ]
 ]
 const config = {
+  assetPrefix: baseUrl,
   async rewrites() {
     return [
       {
-        source: '/ehealth_h5/:slug*',
+        source: `${baseUrl}/:slug*`,
         destination: '/:slug*',
       },
     ]
   },
-  assetPrefix: "/ehealth_h5",
   webpack: (config, { isServer }) => {
     // console.log('config: ', JSON.stringify(config));
     if (isServer) {
