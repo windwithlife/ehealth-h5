@@ -37,11 +37,10 @@ export const isLogin = async()=>{
 /** 登录流程 */
 export const doLogin = async (pageUrl) => {
     try{
-        const outOpenId = localStorage.getItem('openId');
+        // const outOpenId = localStorage.getItem('openId');
         let code = getQueryVariable('code');
-        if(!!outOpenId || !!code){
+        if(code){
             const data = await invoke_post('wechatService/registerWechatPublicUser',{
-                openId:outOpenId,
                 code:code,
             }).then(res=>res?.data);
             const {openId,token} = data;
@@ -96,7 +95,7 @@ export async function invoke_post(url, params = {}) {
             method: 'post',
             url:`${baseUrl}${url}`,
             data: { 
-                platType: 4, category: 1, version: 1, platType: 3, platForm:"wechat_official_account", token, openId,
+                platType: 4, category: 1, version: 1, platForm:"wechat_official_account", token, openId,
                 data: params 
             }
         }).then(checkStatus).then(dealToken);
