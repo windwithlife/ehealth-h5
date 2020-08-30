@@ -28,6 +28,9 @@ export const checkStatus = async response => {
 
 /**公众号验证当前用户是否登录 */
 export const isLogin = async()=>{
+    let code = getQueryVariable('code');  //如果是微信授权回来的 肯定是没登录
+    if(code) return false;
+
     const data = await invoke_post('userService/validateWechatPublicUserLogin').then((res)=>res.data)
     const {isLogin} = data; //(0:未登录 1:已登录);
     if(isLogin == 0) return false;
@@ -95,7 +98,7 @@ export async function invoke_post(url, params = {}) {
             method: 'post',
             url:`${baseUrl}${url}`,
             data: { 
-                platType: 4, category: 1, version: 1, platForm:"wechat_official_account", token, openId,
+                platType: 3, category: 1, version: 1, platForm:"wechat_official_account", token, openId,
                 data: params 
             }
         }).then(checkStatus).then(dealToken);
