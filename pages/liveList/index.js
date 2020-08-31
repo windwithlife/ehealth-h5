@@ -2,7 +2,7 @@ import React, { useState,useEffect} from 'react';
 import "./index.less";
 import LinesEllipsis from 'react-lines-ellipsis'
 import {invoke_post,doHref} from "../../common/index"
-import config from "../../config.json"
+import {Carousel, WingBlank} from "antd-mobile";
 
 /** class 中生命周期函数经常包含不相关的逻辑，但又把相关逻辑分离到了几个不同方法中的问题 */
 let totalPage = null;
@@ -37,7 +37,27 @@ function Live(){
 
   return(
     <div className="live_list_container">
-      {liveList.map((item,idx)=>{
+      <WingBlank style={{margin:'0px 0px 12px 0px'}}>
+        <Carousel autoplay={true} infinite autoplayInterval={1500}>
+          {liveList.slice(0,3).map((item,idx) => {
+            return (
+              <div className="swiper_con" key={idx} onClick={()=>doClick(item)}>
+                <img src={item?.roomPicPath} />
+                <div className="bottom_desc_con">
+                  <LinesEllipsis text={item.roomTitle} maxLine="2" />
+                  <div>
+                    {item.roomStatus == 0 && `未开始 ${item.liveStartDate}`}
+                    {item.roomStatus == 1 && "直播中"}
+                    {item.roomStatus == 2 && "已结束"}
+                  </div>
+               
+                </div>
+              </div>
+            )
+          })}
+        </Carousel>
+      </WingBlank>
+      {liveList.slice(3).map((item,idx)=>{
         return (
           <div className="live_ele_container" key={idx}>
             <div className="live_ele_left" onClick={()=>doClick(item)}>
