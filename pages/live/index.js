@@ -45,7 +45,8 @@ export default class Live extends React.Component{
       const Player = xgplayer.default;
       new Player({
         el:document.querySelector('#mse'),
-        url: url,
+        // url: url,
+        url:"http://liveplayer.koudaibook.com/live/koudaibook_22.flv",
         videoInit: true, //初始化显示视频首帧
         poster: posterUrl //封面图
       });      
@@ -103,7 +104,7 @@ export default class Live extends React.Component{
           {info_con_top_module}
           {info_con_bottom_module}
         </div>
-        <InfoAdd></InfoAdd>
+        {/* <InfoAdd></InfoAdd> */}
       </div>
     )
   }
