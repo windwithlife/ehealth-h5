@@ -26,6 +26,19 @@ export function getTime(timeStamp = '') {
     };
 }
 
+export function judgeClient(){
+    let u = navigator.userAgent;
+    let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;   //判断是否是 android终端
+    let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);     //判断是否是 iOS终端
+    if(isAndroid){
+      return 'ANDROID';
+    }else if(isIOS){
+      return 'IOS';
+    }else{
+      return 'PC';
+    }
+}
+
 function toDoubleNum(num) {
     const strNum = String(num);
     return strNum.length === 1 ? `0${strNum}` : strNum;
@@ -45,7 +58,7 @@ export const Loading = {
     hide() {
         if (!isServer) {
             let divEle = document.querySelector('.div_loading_con');
-            if (!!divEle) document.body.removeChild(divEle);
+            if (divEle) document.body.removeChild(divEle);
         }
     }
 }

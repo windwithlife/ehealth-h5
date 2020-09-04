@@ -73,7 +73,7 @@ export default class InfoAdd extends React.Component{
       }
 
       let [provinceName,cityName] = pickChineseVal.split(',')
-      let data = await invoke_post('userService/updateUserInfo',{
+      await invoke_post('userService/updateUserInfo',{
         userTrueName:name,
         provinceName,cityName,
         hospitalName:hospital,

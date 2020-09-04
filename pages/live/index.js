@@ -3,6 +3,7 @@ import "./index.less";
 import InfoAdd from "./InfoAdd"
 import {invoke_post} from "../../common/index"
 import { Modal } from "antd-mobile";
+import {judgeClient} from "../../common/tools";
 
 
 
@@ -38,11 +39,9 @@ export default class Live extends React.Component{
   tapClick(whichTap){
     this.setState({whichTap})
   }
-
-  loadPlayer(data){ 
-    //xgplayer not support ssr
-    const {videoMp4Url,pullFlvUrl,roomStatus} = data;
+  androidLivePlay(data){
     try{
+      const {videoMp4Url,pullFlvUrl,roomStatus} = data;
       import("flv.js").then((flvjsData)=>{
         let flvjs = flvjsData.default;
         if (flvjs.isSupported()) {
@@ -68,6 +67,43 @@ export default class Live extends React.Component{
       })
     }catch(error){
       console.error('error: ', error);
+    }
+  }
+  iosLivePlay(){
+    try{
+      import("hls.js").then((hlsData)=>{
+        let Hls = hlsData.default;
+        console.log('Hls.isSupported(): ', Hls.isSupported());
+        let video = document.getElementById('videoElement');
+        let videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
+        if (Hls.isSupported()) {
+          let hls = new Hls();
+          hls.loadSource(videoSrc);
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play();
+          });
+        }else if(video.canPlayType('application/vnd.apple.mpegurl')){
+          video.src = videoSrc;
+          video.addEventListener('loadedmetadata', function() {
+            video.play();
+          });
+        }else{
+          Modal.alert('提示', "设备不支持hls流媒体格式", [{text: '确定',onPress: ()=>{}}])
+        }
+      }).catch((error)=>{
+        console.error('hls——error: ', error);
+      })
+    }catch(error){
+      console.error('error: ', error);
+    }
+  }
+  loadPlayer(data){ 
+    console.log('judgeClient(): ', judgeClient());
+    if(judgeClient()=="IOS"){
+      this.iosLivePlay(data);
+    }else{
+      this.androidLivePlay(data);
     }
   }
 
@@ -118,7 +154,7 @@ export default class Live extends React.Component{
      
       <div className="live_container">
         <video id="videoElement"  controls autoPlay>
-          Your browser is too old which doesn't support HTML5 video.
+          Your browser is too old which does not support HTML5 video.
         </video>
         <div className="info_con">
           {info_con_top_module}
