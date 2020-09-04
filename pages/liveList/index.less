@@ -8,10 +8,18 @@
         }
         .bottom_desc_con{
             position: absolute;
-            bottom: 18px;
-            left: 6px;
+            bottom: 0px;
+            left: 0px;
+            background-image: linear-gradient(-180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.4) 85%);
+            color: #fff;
+            right: 0px;
+            .descText{
+                margin-bottom: 12px;
+                margin-left: 6px;
+            }
             .LinesEllipsis{
                 font-size: 18px;
+                margin-left: 6px;
                 margin-bottom: 6px;
             }
         }
@@ -28,12 +36,18 @@
                 width: 100%;
                 height: 100%;
             }
-            .live_ele_left_desc{
+            .live_ele_left_desc_con{
                 position: absolute;
+                bottom: 0px;
+                left: 6px;
+                right: 0px;
+                width: calc(100% - 12px);
+                background-image: linear-gradient(-180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.4) 85%);
                 color: #fff;
-                left: 12px;
-                bottom: 6px;
-                width: calc(100% - 24px);
+                .live_ele_left_desc{
+                    margin-bottom: 2px;
+                    margin-left: 6px;
+                }
             }
         }
         .live_ele_right{

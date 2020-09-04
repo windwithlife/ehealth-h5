@@ -45,12 +45,11 @@ function Live(){
                 <img src={item?.roomPicPath} />
                 <div className="bottom_desc_con">
                   <LinesEllipsis text={item.roomTitle} maxLine="2" />
-                  <div>
+                  <div className="descText">
                     {item.roomStatus == 0 && `未开始 ${item.liveStartDate}`}
                     {item.roomStatus == 1 && "直播中"}
                     {item.roomStatus == 2 && "已结束"}
                   </div>
-               
                 </div>
               </div>
             )
@@ -62,10 +61,12 @@ function Live(){
           <div className="live_ele_container" key={idx}>
             <div className="live_ele_left" onClick={()=>doClick(item)}>
               <img src={item.roomPicPath}></img>
-              <div className="live_ele_left_desc">
-                {item.roomStatus == 0 && `未开始 ${item.liveStartDate}`}
-                {item.roomStatus == 1 && "直播中"}
-                {item.roomStatus == 2 && "已结束"}
+              <div className="live_ele_left_desc_con">
+                <div className="live_ele_left_desc">
+                  {item.roomStatus == 0 && `未开始 ${item.liveStartDate}`}
+                  {item.roomStatus == 1 && "直播中"}
+                  {item.roomStatus == 2 && "已结束"}
+                </div>
               </div>
             </div>
             <div className="live_ele_right">

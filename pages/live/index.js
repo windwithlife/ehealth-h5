@@ -2,6 +2,7 @@ import React from 'react';
 import "./index.less";
 import InfoAdd from "./InfoAdd"
 import {invoke_post} from "../../common/index"
+import { Modal } from "antd-mobile";
 
 
 
@@ -24,8 +25,7 @@ export default class Live extends React.Component{
         id:query?.id
       }).then(result=>result?.data)
       this.setState({initData:data},()=>{
-        const {videoMp4Url,roomPicPath} = data;
-        this.loadPlayer(videoMp4Url,roomPicPath); 
+        this.loadPlayer(data); 
       })
     }catch(error){
       console.error('error: ', error);
@@ -39,18 +39,36 @@ export default class Live extends React.Component{
     this.setState({whichTap})
   }
 
-  loadPlayer(url,posterUrl){ 
+  loadPlayer(data){ 
     //xgplayer not support ssr
-    import("xgplayer").then((xgplayer)=>{
-      const Player = xgplayer.default;
-      new Player({
-        el:document.querySelector('#mse'),
-        // url: url,
-        url:"http://liveplayer.koudaibook.com/live/koudaibook_22.flv",
-        videoInit: true, //初始化显示视频首帧
-        poster: posterUrl //封面图
-      });      
-    })
+    const {videoMp4Url,pullFlvUrl,roomStatus} = data;
+    try{
+      import("flv.js").then((flvjsData)=>{
+        let flvjs = flvjsData.default;
+        if (flvjs.isSupported()) {
+          var videoElement = document.getElementById('videoElement');
+          let type = 'mp4',url = videoMp4Url;
+          if(roomStatus == 0 && !!pullFlvUrl){
+            type = "flv";
+            url = pullFlvUrl;
+          }
+          var flvPlayer = flvjs.createPlayer({
+              type: type,
+              url: url,
+          });
+          flvPlayer.attachMediaElement(videoElement);
+          flvPlayer.load();
+          flvPlayer.play();
+          flvPlayer.on('error',function(error){
+            console.error('flv_error: ', error);
+          })
+        }else{
+          Modal.alert('提示', "设备不支持flv流媒体格式", [{text: '确定',onPress: ()=>{}}])
+        }
+      })
+    }catch(error){
+      console.error('error: ', error);
+    }
   }
 
 
@@ -66,10 +84,10 @@ export default class Live extends React.Component{
           &nbsp;{initData.playNumber}
         </div>
         <div>
-          {initData.roomStatus && "直播中"}
-          {initData.roomStatus && `${initData.liveStartDate} 开播`}
-          {initData.roomStatus=2 && initData.playNumber ==0 && "待回看"}
-          {initData.roomStatus=2 && initData.playNumber ==1 && "回看视频上传中"}
+          {initData.roomStatus==1 && "直播中"}
+          {initData.roomStatus==0 && `${initData.liveStartDate} 开播`}
+          {initData.roomStatus==2 && initData.playAble == 1 && initData.publishStatus == 0 && "直播结束，回放视频上传中"}
+          {initData.roomStatus==2 && (initData.playAble == 0 || initData.publishStatus == 2) && "直播已结束"}
         </div>
       </div>
     )
@@ -97,14 +115,16 @@ export default class Live extends React.Component{
     }
 
     return (
+     
       <div className="live_container">
-        <div id="mse"></div>
-
+        <video id="videoElement"  controls autoPlay>
+          Your browser is too old which doesn't support HTML5 video.
+        </video>
         <div className="info_con">
           {info_con_top_module}
           {info_con_bottom_module}
         </div>
-        {/* <InfoAdd></InfoAdd> */}
+        <InfoAdd></InfoAdd>
       </div>
     )
   }
