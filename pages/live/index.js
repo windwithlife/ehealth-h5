@@ -41,19 +41,15 @@ export default class Live extends React.Component{
   }
   androidLivePlay(data){
     try{
-      const {videoMp4Url,pullFlvUrl,roomStatus} = data;
+      const {pullFlvUrl} = data;
       import("flv.js").then((flvjsData)=>{
         let flvjs = flvjsData.default;
+        console.log('Hls.isSupported(): ', flvjs.isSupported(),pullFlvUrl);
         if (flvjs.isSupported()) {
           var videoElement = document.getElementById('videoElement');
-          let type = 'mp4',url = videoMp4Url;
-          if(roomStatus == 0 && !!pullFlvUrl){
-            type = "flv";
-            url = pullFlvUrl;
-          }
           var flvPlayer = flvjs.createPlayer({
-              type: type,
-              url: url,
+            type : "flv",
+            url : pullFlvUrl,
           });
           flvPlayer.attachMediaElement(videoElement);
           flvPlayer.load();
@@ -69,13 +65,14 @@ export default class Live extends React.Component{
       console.error('error: ', error);
     }
   }
-  iosLivePlay(){
+  iosLivePlay(data){
     try{
+      const {pullHlsUrl} = data;
       import("hls.js").then((hlsData)=>{
         let Hls = hlsData.default;
-        console.log('Hls.isSupported(): ', Hls.isSupported());
+        console.log('Hls.isSupported(): ', Hls.isSupported(),pullHlsUrl);
         let video = document.getElementById('videoElement');
-        let videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
+        let videoSrc = pullHlsUrl;
         if (Hls.isSupported()) {
           let hls = new Hls();
           hls.loadSource(videoSrc);
@@ -99,11 +96,14 @@ export default class Live extends React.Component{
     }
   }
   loadPlayer(data){ 
-    console.log('judgeClient(): ', judgeClient());
-    if(judgeClient()=="IOS"){
-      this.iosLivePlay(data);
-    }else{
-      this.androidLivePlay(data);
+    console.log('data: ', data);
+    const {videoMp4Url,roomStatus,publishStatus} = data;
+    if(roomStatus == 1){
+      if(judgeClient() == "IOS") this.iosLivePlay(data);
+      else this.androidLivePlay(data)
+    }else if(roomStatus == 2 && publishStatus == 1){
+      let video = document.getElementById('videoElement');
+      video.src = videoMp4Url;
     }
   }
 
@@ -160,7 +160,7 @@ export default class Live extends React.Component{
           {info_con_top_module}
           {info_con_bottom_module}
         </div>
-        <InfoAdd></InfoAdd>
+        {/* <InfoAdd></InfoAdd> */}
       </div>
     )
   }
