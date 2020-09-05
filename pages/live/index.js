@@ -160,7 +160,7 @@ export default class Live extends React.Component{
           {info_con_top_module}
           {info_con_bottom_module}
         </div>
-        {/* <InfoAdd></InfoAdd> */}
+        <InfoAdd></InfoAdd>
       </div>
     )
   }
