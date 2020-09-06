@@ -44,7 +44,7 @@ export default class Live extends React.Component{
       const {pullFlvUrl} = data;
       import("flv.js").then((flvjsData)=>{
         let flvjs = flvjsData.default;
-        console.log('Hls.isSupported(): ', flvjs.isSupported(),pullFlvUrl);
+        console.log('flv.isSupported(): ', flvjs.isSupported(),pullFlvUrl);
         if (flvjs.isSupported()) {
           var videoElement = document.getElementById('videoElement');
           var flvPlayer = flvjs.createPlayer({
@@ -151,16 +151,15 @@ export default class Live extends React.Component{
     }
 
     return (
-     
       <div className="live_container">
-        <video id="videoElement"  controls autoPlay>
+        <video id="videoElement"  controls >
           Your browser is too old which does not support HTML5 video.
         </video>
         <div className="info_con">
           {info_con_top_module}
           {info_con_bottom_module}
         </div>
-        <InfoAdd></InfoAdd>
+        {/* <InfoAdd></InfoAdd> */}
       </div>
     )
   }
