@@ -45,7 +45,7 @@ export default class newsDetail extends Component {
 					{!!detailInfo.advPicPath && <div className="contentImgContainer"><img src={detailInfo.advPicPath} className="contentImg" /></div>}
  					<div className='contentDetail' dangerouslySetInnerHTML={{__html: detailInfo.advDesc}}/>
 				</div>
-				<a className='link' href='https://www.baidu.com/'>会议视频地址</a>
+				{/* <a className='link' href='https://www.baidu.com/'>会议视频地址</a> */}
 			</div>
 		)
 	}
