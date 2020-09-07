@@ -1,0 +1,64 @@
+.container {
+	.title {
+		padding: 20px 15px 10px 15px;
+		font-size: 24px;
+		font-weight: bold;
+		color: #333333;
+		line-height: 32px;
+	}
+	.toolbar {
+		display: flex;
+		padding: 0 15px 20px 15px;
+		align-items: center;
+		.tag {
+			height: 20px;
+			padding: 0 6px;
+			border-radius: 4px;
+			display: flex;
+				justify-content: center;
+  		align-items: center;
+  		color: #ffffff;
+  		&.tagTop {
+  			background-color: #f39710;
+  		}
+  		&.tagNew {
+  			background-color: #2196f3;
+  		}
+  		&.tagHot {
+  			background-color: #ff5722;
+  		}
+  		&.tagCustom {
+  			background-color: #00bcd4;
+  		}
+		}
+		.date {
+			margin-left: 6px;
+			color: #999999;
+		}
+	}
+	.content {
+		padding: 0 15px;
+		font-size: 18px;
+		line-height: 22px;
+		.contentImgContainer {
+			max-height: 200px;
+			overflow: hidden;
+			margin-top: 10px;
+			border-radius: 8px;
+			.contentImg {
+				background-color: #d8d8d8;
+				width: 100%;
+				border-radius: 8px;
+			}
+		}
+		.contentDetail {
+			margin: 10px 0;
+		}
+	}
+	.link {
+		padding: 0 15px;
+		font-size: 18px;
+		color: #2196f3;
+		text-decoration: underline
+	}
+}
