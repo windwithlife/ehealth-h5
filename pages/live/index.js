@@ -16,8 +16,12 @@ export default class Live extends React.Component{
     super(props);
     this.state = {
       whichTap:"LEFT", //LEFT | RIGHT
-      initData : {}
+      initData : {},
+      isShowInfoAdd:false,
     }
+  }
+  isShowInfoAddCall(value){
+    this.setState({isShowInfoAdd:value})
   }
   async init(){
     try{
@@ -96,7 +100,6 @@ export default class Live extends React.Component{
     }
   }
   loadPlayer(data){ 
-    console.log('data: ', data);
     const {videoMp4Url,roomStatus,publishStatus} = data;
     if(roomStatus == 1){
       if(judgeClient() == "IOS") this.iosLivePlay(data);
@@ -109,7 +112,7 @@ export default class Live extends React.Component{
 
 
   render(){
-    const {whichTap,initData} = this.state;
+    const {whichTap,initData,isShowInfoAdd} = this.state;
 
     const info_con_top_module = (
       <div className="info_con_top">
@@ -152,14 +155,20 @@ export default class Live extends React.Component{
 
     return (
       <div className="live_container">
-        <video id="videoElement"  controls >
-          Your browser is too old which does not support HTML5 video.
-        </video>
-        <div className="info_con">
-          {info_con_top_module}
-          {info_con_bottom_module}
-        </div>
-        {/* <InfoAdd></InfoAdd> */}
+        {
+          !isShowInfoAdd && (
+            <>
+              <video id="videoElement"  controls >
+                Your browser is too old which does not support HTML5 video.
+              </video>
+              <div className="info_con">
+                {info_con_top_module}
+                {info_con_bottom_module}
+              </div>
+            </>
+          )
+        }
+        <InfoAdd isShowInfoAddCall={this.isShowInfoAddCall.bind(this)}></InfoAdd>
       </div>
     )
   }

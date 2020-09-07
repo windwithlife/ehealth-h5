@@ -33,7 +33,7 @@ export default class InfoAdd extends React.Component{
     this.pickChineseVal  = '';
     this.state = {
       pickerValue:null,
-      isShowinfoAddModule:true,
+      isShowinfoAddModule:false,
     }
   }
   setPickChineseVal(pickChineseVal){
@@ -80,24 +80,30 @@ export default class InfoAdd extends React.Component{
         departmentName:department,
       }).then(res=>res.data);
       this.setState({ isShowinfoAddModule:false})
+      this.props.isShowInfoAddCall(false);
     }catch(error){
       console.error('error: ', error);
     }
   }
 
-  // async componentDidMount(){
-  //   try{
-  //     let isLoginFlag = await isLogin();
-  //     if(!isLoginFlag){
-  //       await doLogin(location.href);
-  //     }
-  //     let data = await invoke_post('userService/validateWriteUserInfo').then(res=>res.data);
-  //     let {isWrite} = data;  //0未填写 1已填写
-  //     if(isWrite == 0) this.setState({ isShowinfoAddModule:true});
-  //   }catch(error){
-  //     console.error('componentDidMount_error',error);
-  //   }
-  // }
+  async componentDidMount(){
+    try{
+      let isLoginFlag = await isLogin();
+      if(!isLoginFlag){
+        await doLogin(location.href);
+      }
+      let data = await invoke_post('userService/validateWriteUserInfo').then(res=>res.data);
+      let {isWrite} = data;  //0未填写 1已填写
+      if(isWrite == 0) {
+        this.setState({ isShowinfoAddModule:true});
+        this.props.isShowInfoAddCall(true);
+      }else{
+        this.props.isShowInfoAddCall(false);
+      }
+    }catch(error){
+      console.error('componentDidMount_error',error);
+    }
+  }
 
   render(){
     const {isShowinfoAddModule} = this.state;
