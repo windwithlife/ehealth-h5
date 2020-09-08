@@ -2,10 +2,29 @@
     position: relative;
     height: 100%;
     overflow: scroll;
-    #videoElement{
-        width: 100vw !important;
-        object-fit: fill;
-        min-height: 36vh;
+    .video_con{
+        position: relative;
+        #videoElement{
+            width: 100vw !important;
+            object-fit: fill;
+            min-height: 36vh;
+        }
+        .count_down_con{
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            color: #fff !important;
+            background: #00000080;
+            span{
+                position: absolute; 
+                left: 50%; 
+                top: 50%; 
+                transform: translate(-50%,-50%);
+                font-size: 24px;
+            }
+        }
     }
     .info_con{
         padding: 0px 12px;

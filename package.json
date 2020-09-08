@@ -29,6 +29,7 @@
     "null-loader": "^4.0.0",
     "qrcode.react": "^1.0.0",
     "react": "^16.4.0",
+    "react-countdown": "^2.2.1",
     "react-dom": "^16.4.0",
     "react-lines-ellipsis": "^0.14.1",
     "xgplayer": "^2.9.14"
