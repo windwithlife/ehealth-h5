@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const logger = require("./tool_server/logger")(__filename);
 const {getIPAddress} = require("./tool_server/tools");
 const {baseUrl} = require("./config.json")
+const path = require('path');
 
 logger.info('process.env.NODE_ENV : ', process.env.NODE_ENV);
 
@@ -21,15 +22,13 @@ app.prepare()
     const server = express()
     server.use(bodyParser.urlencoded({ extended: true }));
     server.use(bodyParser.json());
+    server.use(express.static(path.join(__dirname,"static")));
     
-    server.get(`${baseUrl}(/*)?`, (req, res) => {
+    server.get(`*`, (req, res) => {
       if(req.path == baseUrl)  res.redirect(301, `${baseUrl}/index`);
       return handle(req, res)
     })
-    // server.get(`*`, (req, res) => {
-    //   if(req.path == baseUrl)  res.redirect(301, `${baseUrl}/index`);
-    //   return handle(req, res)
-    // })
+  
 
     const LOCAL_IP = getIPAddress();
     server.listen(port, (err) => {
