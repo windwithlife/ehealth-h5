@@ -37,7 +37,7 @@ function Live(){
 
   return(
     <div className="live_list_container">
-      <WingBlank style={{margin:'0px 0px 12px 0px'}}>
+      {/* <WingBlank style={{margin:'0px 0px 12px 0px'}}>
         <Carousel autoplay={true} infinite autoplayInterval={1500}>
           {liveList.slice(0,3).map((item,idx) => {
             return (
@@ -55,8 +55,8 @@ function Live(){
             )
           })}
         </Carousel>
-      </WingBlank>
-      {liveList.slice(3).map((item,idx)=>{
+      </WingBlank> */}
+      {liveList.map((item,idx)=>{
         return (
           <div className="live_ele_container" key={idx}>
             <div className="live_ele_left" onClick={()=>doClick(item)}>

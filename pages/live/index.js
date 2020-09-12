@@ -127,10 +127,10 @@ export default class Live extends React.Component {
         <div className="info_con_title">
           {initData.roomTitle}
         </div>
-        <div className="icon-shipin iconfont">
+        <div className="icon-shipin iconfont icon-shipin-style">
           &nbsp;{initData.playNumber}
         </div>
-        <div>
+        <div className="live_status">
           {initData.roomStatus == 1 && "直播中"}
           {initData.roomStatus == 0 && `${initData.liveStartDate} 开播`}
           {initData.roomStatus == 2 && initData.playAble == 1 && initData.publishStatus == 0 && "直播结束，回放视频上传中"}
@@ -142,21 +142,21 @@ export default class Live extends React.Component {
     if (Object.keys(initData).length) {
       info_con_bottom_module = (
         <div className="info_con_bottom">
-          <>
+          <div className="info_con_tab">
             <div onClick={this.tapClick.bind(this, "LEFT")}
-              style={whichTap == "LEFT" ? { background: "#108ee9", color: "#fff" } : {}}
+              style={whichTap == "LEFT" ? { borderBottom:"3px solid #1890ff",fontWeight:"bold" } : {}}
               className="info_con_bottom_left_tap tap">
               会议日程
             </div>
             <div onClick={this.tapClick.bind(this, "RIGHT")}
-              style={whichTap == "RIGHT" ? { background: "#108ee9", color: "#fff" } : {}}
+              style={whichTap == "RIGHT" ? { borderBottom:"3px solid #1890ff",fontWeight:"bold" } : {}}
               className="info_con_bottom_right_tap tap">
               会议介绍
             </div>
             <img className="desc_img" src={
               whichTap == "LEFT" ? initData.roomSchedulePath : initData.roomDescPath
             } />
-          </>
+          </div>
         </div>
       )
     }
@@ -173,7 +173,11 @@ export default class Live extends React.Component {
                 {
                   !!countdownTime && (
                     <div className="count_down_con">
-                      <Countdown onComplete={this.countdownComplete.bind(this)} date={'2020-09-08 22:30:35'}></Countdown>
+                      <div className="count_down_wrap">
+                        <div>直播倒计时</div> 
+                        <Countdown onComplete={this.countdownComplete.bind(this)} date={countdownTime}></Countdown>
+                      </div>
+                      
                     </div>
                   )
                 }
