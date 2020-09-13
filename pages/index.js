@@ -3,7 +3,7 @@ import React from 'react';
 
 
 
-export default class extends React.Component {
+export default class A extends React.Component {
     constructor(props){
         super(props);
     }
