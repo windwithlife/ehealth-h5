@@ -1,8 +1,7 @@
 import React, { useState,useEffect} from 'react';
 import "./index.less";
-import LinesEllipsis from 'react-lines-ellipsis'
 import {invoke_post,doHref} from "../../common/index"
-import {Carousel, WingBlank} from "antd-mobile";
+
 
 /** class 中生命周期函数经常包含不相关的逻辑，但又把相关逻辑分离到了几个不同方法中的问题 */
 let totalPage = null;
@@ -37,49 +36,30 @@ function Live(){
 
   return(
     <div className="live_list_container">
-      {/* <WingBlank style={{margin:'0px 0px 12px 0px'}}>
-        <Carousel autoplay={true} infinite autoplayInterval={1500}>
-          {liveList.slice(0,3).map((item,idx) => {
-            return (
-              <div className="swiper_con" key={idx} onClick={()=>doClick(item)}>
-                <img src={item?.roomPicPath} />
-                <div className="bottom_desc_con">
-                  <LinesEllipsis text={item.roomTitle} maxLine="2" />
-                  <div className="descText">
-                    {item.roomStatus == 0 && `未开始 ${item.liveStartDate}`}
-                    {item.roomStatus == 1 && "直播中"}
-                    {item.roomStatus == 2 && "已结束"}
-                  </div>
-                </div>
+      {
+        liveList.map((item,idx)=>{
+          return (
+            <div className="ele_con" key={idx} onClick={()=>doClick(item)}>
+              <div className="ele_title">{item.roomTitle}</div>
+              <div className="ele_desc_con">
+                {!!item.playNumber && <div className="play_num iconfont">&#xe768; <span>{item.playNumber}</span></div>} 
+                {item.roomStatus == 0} <div className="start_time iconfont">&#xe6be; <span>{item.liveStartDate}</span></div>
               </div>
-            )
-          })}
-        </Carousel>
-      </WingBlank> */}
-      {liveList.map((item,idx)=>{
-        return (
-          <div className="live_ele_container" key={idx}>
-            <div className="live_ele_left" onClick={()=>doClick(item)}>
-              <img src={item.roomPicPath}></img>
-              <div className="live_ele_left_desc_con">
-                <div className="live_ele_left_desc">
-                  {item.roomStatus == 0 && `未开始 ${item.liveStartDate}`}
+              <div className="ele_cover_img_con">
+                <img className="ele_cover_img"  src={item.roomPicPath}/>
+                {(item.roomStatus == 1 || item.roomStatus == 2) && <img className="ele_cover_start_logo" src="http://images.e-healthcare.net/images/2020/09/14/images20091422181879484.png" />} 
+                <div style={
+                  item.roomStatus==2 ? {background:"#FD5A42"} : item.roomStatus==1 ? {background:"#2BA246"} : {}
+                } className="ele_cover_status">
+                  {item.roomStatus == 0 && '未开始'}
                   {item.roomStatus == 1 && "直播中"}
                   {item.roomStatus == 2 && "已结束"}
                 </div>
               </div>
             </div>
-            <div className="live_ele_right">
-              <div className="live_ele_right_ele1">
-                <LinesEllipsis text={item.roomTitle} maxLine="2" />
-              </div>
-              <div className="icon-shipin iconfont">
-                &nbsp;{item.playNumber}
-              </div>
-            </div>
-          </div>
-        )
-      })}
+          )
+        })
+      }
     </div>
   )
 }

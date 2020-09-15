@@ -1,43 +1,49 @@
+@import "../styles/minix.less";
+
 .user_container {
 	display: flex;
 	flex-direction: column;
 	.user_image_container {
 		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
+		flex-direction: column;
 		align-items: center;
-		margin-left: 30px;
-		margin-right: 30px;
-		margin-top: 30px;
-		margin-bottom: 30px;
+		margin: 30px auto;
 		.user_image {
-			width: 80px;
-			height: 80px;
+			width: 88px;
+			height: 88px;
 			overflow: hidden;
-			border-radius: 10px;
+			border-radius: 50%;
+			margin-bottom: 20px;
+			border: 2px solid @base_color;
 		}
-		.user_name_list {
-			flex: 1;
-			height: 80px;
-			display: flex;
-			flex-direction: column;
-			margin-left: 15px;
-			margin-top: 10px;
-			.user_name {
-				font-size: 24px;
-				font-weight: bold;
-				color: #333333;
-			}
-			.user_wechat_name {
-				margin-top: 15px;
-				font-size: 16px;
-				color: #999999;
-			}
+		.user_wechat_name{
+			font-size: 16px;
+			font-weight: 400;
+			color: #262626;
+			line-height: 22px;
 		}
+		// .user_name_list {
+		// 	flex: 1;
+		// 	height: 80px;
+		// 	display: flex;
+		// 	flex-direction: column;
+		// 	margin-left: 15px;
+		// 	margin-top: 10px;
+		// 	.user_name {
+		// 		font-size: 24px;
+		// 		font-weight: bold;
+		// 		color: #333333;
+		// 	}
+		// 	.user_wechat_name {
+		// 		margin-top: 15px;
+		// 		font-size: 16px;
+		// 		color: #999999;
+		// 	}
+		// }
 	}
 	.user_list_spread {
 		border-bottom-style: solid;
-		border-bottom-width: 10px;
+		border-bottom-width: 4px;
 		border-color: #ebebf3;
 	}
 	.user_info_list {
@@ -56,13 +62,13 @@
 			border-color: #999999
 		}
 		.user_info_list_item_left {
-			font-size: 18px;
+			font-size: 14px;
 			color: #666666;
 			margin-left: 10px;
 		}
 		.user_info_list_item_right {
-			font-size: 20px;
-			color: #666666;
+			font-size: 14px;
+			color: #262626;
 			margin-right: 10px;
 		}
 	}

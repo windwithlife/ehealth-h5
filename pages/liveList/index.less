@@ -1,76 +1,64 @@
 .live_list_container{
     background: #F4F4F4;
-    .slider-frame{
-        height: 35vh !important;
-    }
-    .swiper_con{
-        height: 100%;
-        position: relative;
-        height: 30vh !important;
-        img{
-            width: 100%;
-            height: 100%;
-        }
-        .bottom_desc_con{
-            position: absolute;
-            bottom: 0px;
-            left: 0px;
-            background-image: linear-gradient(-180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.4) 85%);
-            color: #fff;
-            right: 0px;
-            .descText{
-                margin-bottom: 12px;
-                margin-left: 6px;
-            }
-            .LinesEllipsis{
-                font-size: 18px;
-                margin-left: 6px;
-                margin-bottom: 6px;
-            }
-        }
-    }
-    .live_ele_container{
-        display: flex;
-        height: 120px;
-        /* margin-bottom: 6px; */
-        padding: 20px;
+    height: 100%;
+    overflow: scroll;
+    padding-bottom: 20vh;
+    .ele_con{
         background: #fff;
+        padding: 9px 11px 6px 11px;
         margin-bottom: 4px;
-        .live_ele_left{
-            width: 46%;
-            padding: 0px 6px;
-            position: relative;
-            img{
-                width: 100%;
-                height: 100%;
-            }
-            .live_ele_left_desc_con{
-                position: absolute;
-                bottom: -3px;
-                left: 1px;
-                right: 0px;
-                width: calc(100% - 7px);
-                color: #fff;
-                .live_ele_left_desc{
+        .ele_title{
+            font-size: 16px;
+            color: #262626;
+            line-height: 22px;
+        }
+        .ele_desc_con{
+            display: flex;
+            margin: 5px 0px;
+            align-items: center;
+            margin-right: 15px;
+            .play_num{
+                display: flex;
+                align-items: center;
+                span{
                     font-size: 12px;
-                    margin-bottom: 4px;
-                    margin-left: 5px;
-                    display: inline-block;
-                    padding: 1px 7px;
-                    background: rgba(38,38,38,0.6);
-                    border-radius: 0px;
+                    color: #9E9E9E;
+                    margin-left: 10px;
+                }
+            }
+            .start_time{
+                display: flex;
+                align-items: center;
+                span{
+                    font-size: 12px;
+                    color: #9E9E9E;
+                    margin-left: 10px;
                 }
             }
         }
-        .live_ele_right{
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 54%;
-            padding: 6px;
-            .live_ele_right_ele1{
-                font-size: 16px;
-                font-weight: 400;
+        .ele_cover_img_con{
+            overflow: hidden;
+            position: relative;
+            .ele_cover_img{
+                width: 100%;
+                height: 198px;
+                border: 1px dashed #000;
+                box-sizing: border-box;
+            }
+            .ele_cover_start_logo{
+                position: absolute;
+                width: 72px;
+                height: 72px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+            .ele_cover_status{
+                position: absolute;
+                top: 0px;
+                color: #fff;
+                background: #FFA65A;
+                padding: 3px 14px;
             }
         }
     }
