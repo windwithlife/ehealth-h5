@@ -5,7 +5,9 @@ import { invoke_post } from "../../common/index"
 import { Modal } from "antd-mobile";
 import { judgeClient } from "../../common/tools";
 import Countdown from 'react-countdown';
-
+/**
+ * https://www.cnblogs.com/TF12138/p/4448108.html HTML5的Video标签的属性,方法和事件汇总
+ */
 
 
 
@@ -106,7 +108,6 @@ export default class Live extends React.Component {
   }
   loadPlayer(data) {
     const { videoMp4Url, roomStatus, publishStatus, liveStartDate } = data;
-    console.log('liveStartDate: ', liveStartDate);
     if (roomStatus == 1) {
       if (judgeClient() == "IOS") this.iosLivePlay(data);
       else this.androidLivePlay(data)
@@ -167,7 +168,7 @@ export default class Live extends React.Component {
           !isShowInfoAdd && (
             <>
               <div className="video_con">
-                <video id="videoElement" controls >
+                <video id="videoElement" controls poster={initData.roomPicPath}>
                   Your browser is too old which does not support HTML5 video.
                 </video>
                 {
@@ -177,11 +178,9 @@ export default class Live extends React.Component {
                         <div>直播倒计时</div> 
                         <Countdown onComplete={this.countdownComplete.bind(this)} date={countdownTime}></Countdown>
                       </div>
-                      
                     </div>
                   )
                 }
-
               </div>
               <div className="info_con">
                 {info_con_top_module}
