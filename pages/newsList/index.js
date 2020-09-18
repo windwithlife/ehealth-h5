@@ -56,7 +56,7 @@ export default class newsList extends Component {
 						</div>
 						<div className="news_list_news_ele_desc">
 							{!!carouselDescObj?.clickNumber && <div className="news_list_news_ele_desc_read">{carouselDescObj?.clickNumber} 阅读</div>}
-							{/* <div>30 分钟前</div> */}
+							{!!carouselDescObj?.startDate && <div>开始时间 {carouselDescObj?.startDate}</div>} 
 						</div>
 					</div>
 				</div>
@@ -71,7 +71,7 @@ export default class newsList extends Component {
 									</div>
 									<div className="news_list_news_ele_desc">
 										{!!item.clickNumber && <div className="news_list_news_ele_desc_read">{item.clickNumber} 阅读</div>}
-										{/* <div>30 分钟前</div> */}
+										{!!carouselDescObj?.startDate && <div>开始时间 {carouselDescObj?.startDate}</div>} 
 									</div>
 								</div>
 								<div className="news_list_news_con_list_right">
