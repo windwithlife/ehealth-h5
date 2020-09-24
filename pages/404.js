@@ -1,4 +1,6 @@
-export default function(props){
+import React from 'react'
+
+export default  function Name(){
     return (
         <>
             <style jsx>{`

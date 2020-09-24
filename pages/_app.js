@@ -10,7 +10,6 @@ import "./styles/_app.less";
 class MyApp extends App {
     static async getInitialProps({req,res,router,Component}) {
         let ComponentInitProps = {};
-
         let initializeStoreObj = initializeStore({
             testStore:{ count:2 }
         });
@@ -18,6 +17,7 @@ class MyApp extends App {
         if(Component.getInitialProps) ComponentInitProps = await Component.getInitialProps({
             router ,req ,res, initializeStoreObj
         })
+        ComponentInitProps.NODE_ENV = process.env.NODE_ENV;
 
         return {
             ComponentInitProps,

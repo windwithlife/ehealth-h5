@@ -84,7 +84,7 @@ async function dealToken(result) {
 }
 
 export async function invoke_post(url, params = {}) {
-    let baseUrl = 'https://service.e-healthcare.net/meeting-server/api/';
+    let baseUrl = 'https://soagateway.koudaibook.com/meeting-server/api/';
     try {
         Loading.show();
         axios.defaults.withCredentials = true;

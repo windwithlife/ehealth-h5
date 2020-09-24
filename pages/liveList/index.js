@@ -1,36 +1,42 @@
 import React, { useState,useEffect} from 'react';
 import "./index.less";
-import {invoke_post,doHref} from "../../common/index"
+import {invoke_post,doHref} from "../../common/index";
+import {LoadMore} from "components";
 
 
 /** class 中生命周期函数经常包含不相关的逻辑，但又把相关逻辑分离到了几个不同方法中的问题 */
 let totalPage = null;
 let currentPage = 1;
 
-function Live(){
-  function doClick(item){
+function Live(props){
+  const [liveList,setLiveList] = useState([]);
+ 
+
+  function __doClick(item){
     let {id} = item;
     doHref(`live?id=${id}`);
   }
-
-  const [liveList,setLiveList] = useState([]);
-  useEffect(() => {
-    async function fetchData() {
-      try{
+  
+  async function __loadData(){
+    try{
+      if(!totalPage || currentPage<=totalPage) {
         let data = await invoke_post('advertService/getLiveList',{
           currentPage:currentPage,pageSize:10
         }).then((result)=>result?.data);
         totalPage = data?.totalPage || 1;
-        
         let liveListData = data?.liveList || [];
         currentPage++;
         setLiveList(liveList.concat(liveListData));
-      }catch(error){
-        console.error('useEffect_error',error);
+      }else{
+        console.log('props.NODE_ENV: ', props.NODE_ENV);
+        console.log(`数据加载完成 totalPage = ${totalPage} , currentPage = ${currentPage}`);
       }
+    }catch(error){
+      console.error('__loadData_error',error);
     }
-    if(!totalPage || currentPage <= totalPage) fetchData();
-  },[liveList]);
+  }
+
+
   
 
 
@@ -39,7 +45,7 @@ function Live(){
       {
         liveList.map((item,idx)=>{
           return (
-            <div className="ele_con" key={idx} onClick={()=>doClick(item)}>
+            <div className="ele_con" key={idx} onClick={()=>__doClick(item)}>
               <div className="ele_title">{item.roomTitle}</div>
               <div className="ele_desc_con">
                 {!!item.playNumber && <div className="play_num iconfont">&#xe768; <span>{item.playNumber}</span></div>} 
@@ -60,6 +66,8 @@ function Live(){
           )
         })
       }
+      <LoadMore callback={__loadData}></LoadMore>
+
     </div>
   )
 }
