@@ -189,7 +189,7 @@ export default class Live extends React.Component {
             </>
           )
         }
-        {/* <InfoAdd isShowInfoAddCall={this.isShowInfoAddCall.bind(this)}></InfoAdd> */}
+        <InfoAdd isShowInfoAddCall={this.isShowInfoAddCall.bind(this)}></InfoAdd>
       </div>
     )
   }
