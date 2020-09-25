@@ -107,7 +107,7 @@ export default class Live extends React.Component {
     location.reload();
   }
   loadPlayer(data) {
-    const { videoMp4Url, roomStatus, publishStatus, liveStartDate } = data;
+    let { videoMp4Url, roomStatus, publishStatus, liveStartDate } = data;
     if (roomStatus == 1) {
       if (judgeClient() == "IOS") this.iosLivePlay(data);
       else this.androidLivePlay(data)
@@ -115,6 +115,8 @@ export default class Live extends React.Component {
       let video = document.getElementById('videoElement');
       video.src = videoMp4Url;
     } else if (roomStatus == 0) {
+      
+      if (judgeClient() == "IOS") liveStartDate = liveStartDate.replace(/-/g,'/');
       this.setState({ countdownTime: liveStartDate })
     }
   }
