@@ -67,7 +67,6 @@ function Live(props){
         })
       }
       <LoadMore callback={__loadData}></LoadMore>
-
     </div>
   )
 }

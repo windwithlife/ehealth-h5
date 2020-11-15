@@ -156,7 +156,11 @@ export default class Live extends React.Component {
               className="info_con_bottom_right_tap tap">
               会议介绍
             </div>
-            <div dangerouslySetInnerHTML={whichTap == "LEFT"?{__html: initData.roomScheduleInfo, } :{__html: initData.roomIntroduce}}></div>
+            <div className="info_con_bottom_rich_text" 
+              dangerouslySetInnerHTML={whichTap == "LEFT"  ?
+                {__html: initData.roomScheduleInfo, } :
+                {__html: initData.roomIntroduce}}>
+              </div>
           </div>
         </div>
       )
@@ -189,7 +193,7 @@ export default class Live extends React.Component {
             </>
           )
         }
-        <InfoAdd isShowInfoAddCall={this.isShowInfoAddCall.bind(this)}></InfoAdd>
+        {/* <InfoAdd isShowInfoAddCall={this.isShowInfoAddCall.bind(this)}></InfoAdd> */}
       </div>
     )
   }
