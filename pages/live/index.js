@@ -18,7 +18,7 @@ export default class Live extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      whichTap: "LEFT", //LEFT | RIGHT
+      whichTap: "LEFT", // LEFT | RIGHT | RIGHTEST
       initData: {},
       isShowInfoAdd: false,
       countdownTime: null,
@@ -156,10 +156,16 @@ export default class Live extends React.Component {
               className="info_con_bottom_right_tap tap">
               会议介绍
             </div>
+            <div onClick={this.tapClick.bind(this, "RIGHTEST")}
+              style={whichTap == "RIGHTEST" ? { borderBottom:"3px solid #1890ff",fontWeight:"bold" } : {}}
+              className="info_con_bottom_right_tap tap">
+              讨论区
+            </div>
             <div className="info_con_bottom_rich_text" 
-              dangerouslySetInnerHTML={whichTap == "LEFT"  ?
-                {__html: initData.roomScheduleInfo, } :
-                {__html: initData.roomIntroduce}}>
+              dangerouslySetInnerHTML={
+                  whichTap == "LEFT"  ? {__html: initData.roomScheduleInfo, } :
+                  whichTap == "RIGHT" ?  {__html: initData.roomIntroduce} : {__html: "<br/><br/><br/>敬请期待<br/><br/><br/><br/><br/><br/><br/><br/><br/>" } 
+              }>
               </div>
           </div>
         </div>
@@ -193,7 +199,7 @@ export default class Live extends React.Component {
             </>
           )
         }
-        {/* <InfoAdd isShowInfoAddCall={this.isShowInfoAddCall.bind(this)}></InfoAdd> */}
+        <InfoAdd isShowInfoAddCall={this.isShowInfoAddCall.bind(this)}></InfoAdd>
       </div>
     )
   }
